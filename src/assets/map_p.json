@@ -1,0 +1,12 @@
+{
+    "settings":{},
+    "layers":[
+        {
+            "type":"wms",
+            "name":"agebs",
+            "visible":"true",
+            "settings":{},
+            "plugin_view":{}
+        }
+    ]
+}

@@ -3,7 +3,11 @@
     "skeleton":{
         "base":["base_osm"],
         "main":[
-            "red_vial"
+            "red_vial",
+            {"Veracruz":[
+                "agebs",
+                "delitos"
+            ]}
         ]
     },
     "layers":[

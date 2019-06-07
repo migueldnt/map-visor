@@ -9,7 +9,7 @@ export class SimpleRequestService {
   constructor(private http:HttpClient) {
     
   }
-  
+
   getJson(url:string){
     return this.http.get(url)
   }

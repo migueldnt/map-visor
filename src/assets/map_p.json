@@ -1,5 +1,8 @@
 {
-    "settings":{},
+    "settings":{
+        "zoom":5,
+        "center":[0,0]
+    },
     "skeleton":{
         "base":["base_osm"],
         "main":[
@@ -9,9 +12,9 @@
     "layers":[
         {
             "type":"tile",
-            "name":"base_OSM",
+            "name":"base_osm",
             "title":"Open Street Map",
-            "visible":"true",
+            "visible":true,
             "settings":{
                 "ol_source_accesor":"OSM"
             },
@@ -21,7 +24,8 @@
             "type":"wms",
             "name":"red_vial",
             "title":"Red Vial Ciudad de Mexico",
-            "visible":"true",
+            "visible":true,
+            "opacity":1,
             "settings":{
                 "request_body":{
                     "LAYERS":"cdmx:red_vial",

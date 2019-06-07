@@ -3,6 +3,7 @@ import { Map, View } from 'ol';
 import TileLayer from 'ol/layer/Tile';
 import OSM from 'ol/source/OSM';
 import { DntLayerCreator } from './dnt-layer-creator';
+import { SimpleRequestService } from './simple-request.service';
 
 @Component({
   selector: 'app-root',
@@ -12,12 +13,11 @@ import { DntLayerCreator } from './dnt-layer-creator';
 export class AppComponent {
   title = 'map-visor';
   mapa=null;
-  constructor() {
-    
-  }
+  mapCreator:DntLayerCreator;
+  constructor(public simpleRequestService:SimpleRequestService){
 
+  }
   ngOnInit(){
-    console.log("iniciando esto")
     this.mapa = new Map({
       target: 'mapa1',
       layers: [
@@ -27,12 +27,13 @@ export class AppComponent {
         zoom: 3
       })
     });
-    console.log(this.mapa)
-    let mapCreator=new DntLayerCreator(this.mapa,{})
-  }
-
-
-  irPorJson1(){
+    //console.log(this.mapa)
+    this.simpleRequestService.getJson("assets/map_p.json").subscribe((data)=>{
+      this.mapCreator=new DntLayerCreator(this.mapa,data)
+      this.mapCreator.setupMap()
+    })
     
   }
+
+
 }

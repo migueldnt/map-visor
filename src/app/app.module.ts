@@ -3,6 +3,8 @@ import { NgModule } from '@angular/core';
 
 import { AppComponent } from './app.component';
 import { LayerlistComponent } from './layerlist/layerlist.component';
+import { SimpleRequestService } from './simple-request.service';
+import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
   declarations: [
@@ -10,9 +12,9 @@ import { LayerlistComponent } from './layerlist/layerlist.component';
     LayerlistComponent
   ],
   imports: [
-    BrowserModule
+    BrowserModule,HttpClientModule
   ],
-  providers: [],
+  providers: [SimpleRequestService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

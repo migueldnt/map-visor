@@ -3,6 +3,7 @@ import BaseLayer from 'ol/layer/Base';
 import { TileDntL } from './dntlayer/tile-Dnt-L';
 import { DntLayer } from './dntlayer/dnt-layer';
 import { GroupDntL } from './dntlayer/group-dnt-l';
+import { WMSDntL } from './dntlayer/wmsdnt-l';
 
 export class DntLayerCreator {
     map:Map;
@@ -45,12 +46,16 @@ export class DntLayerCreator {
     setupMap(){
         //de las configuraciones necesarias aplicarselas al mapa
         //primero las de el centro y zoom y todo eso, ver si es necesario hacer interfaces
-
+        let zoom:number=this.jsonLoaded.settings.zoom;
+        let center:number[]=this.jsonLoaded.settings.center;
+        this.map.getView().setCenter(center);
+        this.map.getView().setZoom(zoom);
         //despues lo de los layers, construirlos
         let layersTodos:DntLayer[]=[];
         this.layersParams.forEach(layerParam => {
             // console.log(layerParam);
             let unDntLayer:DntLayer=DntLayerCreator.construirDntLayer(layerParam);
+            console.log(unDntLayer.layer)  //aqui el layer es undefineds
             layersTodos.push(unDntLayer);
         });
         //debemos ordenarlos en los grupos de capas base y por fin agregarlos al mapa
@@ -69,11 +74,12 @@ export class DntLayerCreator {
         //console.log(this.map.getLayers())
 
         this.groupLayersMain=new GroupDntL({name:"_DNT_MAIN_",title:"",type:"group",settings:{},visible:true,opacity:1})
-        //this.groupLayersMain.setHijos(this.layers_main);
+        this.groupLayersMain.setHijos(this.layers_main);
+        this.map.addLayer(this.groupLayersMain.layer);
     }
 
     private ordenarlayersEnArbol(todosLayers:DntLayer[]){
-        console.log(todosLayers);   
+        //console.log(todosLayers);   
         let arbol:any=this.jsonLoaded.skeleton;
         if("base" in arbol){
             //llenar todos los que perteneceran al grupo base
@@ -112,10 +118,13 @@ export class DntLayerCreator {
         let tipo=layerParam.type;
         switch (tipo) {
             case "tile":
-                return new TileDntL(layerParam)
+                return new TileDntL(layerParam);
                 break;
+            case "wms":
+                return new WMSDntL(layerParam);
             default:
-                return new DntLayer(layerParam)
+                //return new DntLayer(layerParam);
+                console.log("AGREGA ESTE TIPO DE LAYER PARA SOPORTARLO")
                 break;
         }
     }

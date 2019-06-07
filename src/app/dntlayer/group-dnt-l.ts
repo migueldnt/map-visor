@@ -19,6 +19,7 @@ export class GroupDntL extends DntLayer {
     }
 
     public setHijos(hijos:DntLayer[]){
+        //console.log(hijos)
         this.hijos=hijos;
         //traer los layers de estos
         let layersOL:BaseLayer[]=[]

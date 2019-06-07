@@ -1,7 +1,7 @@
 {
     "settings":{
-        "zoom":5,
-        "center":[0,0]
+        "zoom":10,
+        "center":[-99.133209,19.432608]
     },
     "skeleton":{
         "base":["base_osm"],
@@ -29,7 +29,8 @@
             "settings":{
                 "request_body":{
                     "LAYERS":"cdmx:red_vial",
-                    "SRS":"EPSG:4326"
+                    "SRS":"EPSG:4326",
+                    "TILED":true
                 },
                 "url":"http://localhost:8080/geoserver/wms"
             },

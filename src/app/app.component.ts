@@ -24,7 +24,8 @@ export class AppComponent {
       ],
       view: new View({
         center: [0, 0],
-        zoom: 3
+        zoom: 3,
+        projection:"EPSG:4326"
       })
     });
     //console.log(this.mapa)

@@ -4,18 +4,23 @@ import TileLayer from 'ol/layer/Tile';
 import TileWMS from 'ol/source/TileWMS';
 
 export class WMSDntL extends DntLayer {
+    settings:WMSSettingsParam;
 
     constructor(layerParam:LayerParam){
         super(layerParam);
-        let settings1:WMSSettingsParam=this.layerParamObject.settings;
+        this.settings=this.layerParamObject.settings;
+        
         this.layer=new TileLayer({
             source:new TileWMS({
-                url:settings1.url,
-                params:settings1.request_body,
+                url:this.settings.url,
+                params:this.settings.request_body,
                 serverType: "geoserver",
                 transition: 0
             })
         });
+        if("extent" in this.settings){
+            this.layer.setExtent(this.settings.extent);
+        }
         this.setBasicsToLayer();
         
     }
@@ -24,5 +29,6 @@ export class WMSDntL extends DntLayer {
 
 export interface WMSSettingsParam{
     request_body:any,
-    url:string
+    url:string,
+    extent?:number[]
 }

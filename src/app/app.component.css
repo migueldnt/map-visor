@@ -14,7 +14,7 @@
     width: 300px;
     height: 100%;
     background-color: rgb(236, 230, 230);
-    padding: 10px 15px;
+    /*padding: 10px 15px;*/
     z-index: 5;
     /*box-shadow: rgba(0, 0, 0, 0.62) 4px 0px 16px 0px;*/
 }

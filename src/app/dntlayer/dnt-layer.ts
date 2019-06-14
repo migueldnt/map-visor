@@ -5,6 +5,7 @@ export class DntLayer {
     layer:BaseLayer
     type:string
     name:string
+    title:string
     visible:boolean
     isPluginView:boolean
     isGroup:Boolean
@@ -14,6 +15,7 @@ export class DntLayer {
         this.layerParamObject=layerParam;
         this.type=layerParam.type;
         this.name=layerParam.name;
+        this.title=layerParam.title;
         this.visible=("visible" in layerParam)?layerParam.visible:true;
     }
 

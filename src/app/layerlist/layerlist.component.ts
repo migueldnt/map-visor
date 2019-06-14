@@ -3,6 +3,8 @@ import { Component, OnInit, Input } from '@angular/core';
 import {FlatTreeControl} from '@angular/cdk/tree';
 import {MatTreeFlatDataSource, MatTreeFlattener} from '@angular/material/tree';
 import { LayerRefreshService } from './layer-refresh.service';
+import { DntLayer } from '../dntlayer/dnt-layer';
+import { GroupDntL } from '../dntlayer/group-dnt-l';
 
 
 
@@ -15,7 +17,7 @@ interface FoodNode {
   layers?: FoodNode[];
 }
 
-const TREE_DATA: FoodNode[] = [];
+const TREE_DATA: DntLayer[] = [];
 
 /** Flat node with expandable and level information */
 interface ExampleFlatNode {
@@ -31,18 +33,16 @@ interface ExampleFlatNode {
   styleUrls: ['./layerlist.component.css']
 })
 export class LayerlistComponent implements OnInit {
-  @Input() json1:FoodNode[]=[
-    {
-      title: 'Cdmx',
-      layers: [
-        {title: 'red vial'},
-        {title: 'nodos'},
-        {title: 'inventario'},
-      ]
-    }]
-  private _transformer = (node: FoodNode, level: number) => {
+  @Input() json1:DntLayer[]=[]
+  private _transformer = (node: DntLayer, level: number) => {
+    let expandable1=false
+    if(node instanceof GroupDntL){
+      if((node as GroupDntL).hijos.length>0){
+        expandable1=true
+      }
+    }
     return {
-      expandable: !!node.layers && node.layers.length > 0,
+      expandable: expandable1,
       name: node.title,
       level: level,
     };
@@ -52,14 +52,13 @@ export class LayerlistComponent implements OnInit {
       node => node.level, node => node.expandable);
 
   treeFlattener = new MatTreeFlattener(
-      this._transformer, node => node.level, node => node.expandable, node => node.layers);
+      this._transformer, node => node.level, node => node.expandable, node => (node as GroupDntL).hijos );
 
   dataSource = new MatTreeFlatDataSource(this.treeControl, this.treeFlattener);
 
   constructor(private _layerRefreshService:LayerRefreshService) {
     this.dataSource.data = TREE_DATA
     this._layerRefreshService.listen().subscribe((m:any)=>{
-      console.log("aqui ponlo::")
       console.log(m)
       setTimeout(()=>{
         this.dataSource.data=this.json1;

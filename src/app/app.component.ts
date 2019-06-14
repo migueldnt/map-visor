@@ -6,6 +6,7 @@ import { DntLayerCreator } from './dnt-layer-creator';
 import { SimpleRequestService } from './simple-request.service';
 import { LayerRefreshService } from './layerlist/layer-refresh.service';
 import { EventEmitter } from 'events';
+import { DntLayer } from './dntlayer/dnt-layer';
 
 @Component({
   selector: 'app-root',
@@ -15,7 +16,7 @@ import { EventEmitter } from 'events';
 export class AppComponent {
   title = 'map-visor';
   mapa = null;
-  eljson1:any[] = ["todos_layers"]; //borrar, solo es para probar
+  eljson1:DntLayer[] = []; //borrar, solo es para probar
   mapCreator: DntLayerCreator;
   constructor(public simpleRequestService: SimpleRequestService,private _layerRefreshService:LayerRefreshService) {
 
@@ -36,16 +37,8 @@ export class AppComponent {
     this.simpleRequestService.getJson("assets/map_p.json").subscribe((data) => {
       this.mapCreator = new DntLayerCreator(this.mapa, data)
       this.mapCreator.setupMap()
-      this.eljson1 = [
-        {title:"red_vial refrescado"},
-        {
-          title: "Capas ciudad de Mexico",
-          layers: [
-            {title:"nodos_cdmx"}
-          ]
-        }
-      ]
-      this._layerRefreshService.refresh("ok refresca !!")
+      this.eljson1 = this.mapCreator.groupLayersMain.hijos;
+      this._layerRefreshService.refresh("refrescando capas en arbol..")
     })
 
   }

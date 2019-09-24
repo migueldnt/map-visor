@@ -11,12 +11,12 @@
             "base_osm"
         ],
         "main": [
-            "red_vial",
             "dem_mexico",
             {
-                "title":"Capas ciudad de Mexico",
+                "title":"Pruebas 1",
                 "layers":[
-                    "nodos_cdmx"
+                    "grad_edu",
+                    "centros_muns"
                 ]
             }
         ]
@@ -26,7 +26,7 @@
             "type": "tile",
             "name": "base_osm",
             "title": "Open Street Map",
-            "visible": true,
+            "visible": false,
             "settings": {
                 "ol_source_accesor": "OSM"
             },
@@ -34,44 +34,44 @@
         },
         {
             "type": "wms",
-            "name": "red_vial",
-            "title": "Red Vial Ciudad de Mexico",
+            "name": "grad_edu",
+            "title": "Grado de Educación",
             "visible": true,
             "opacity": 1,
             "settings": {
                 "request_body": {
-                    "LAYERS": "cdmx:red_vial",
+                    "LAYERS": "mexico:muns_grado_educacion 2015",
                     "SRS": "EPSG:4326",
                     "TILED": true
                 },
                 "url": "http://localhost:8080/geoserver/wms",
                 "extent": [
-                    -99.4157001760869,
-                    18.968111226975296,
-                    -98.92457679563076,
-                    19.588382264982073
+                    -118.365119934082,
+                    14.5320978164673,
+                    -86.7104034423828,
+                    32.7186546325684
                 ]
             },
             "plugin_view": {}
         },
         {
             "type": "wms",
-            "name": "nodos_cdmx",
-            "title": "Nodos de la ciudad de Mexico",
+            "name": "centros_muns",
+            "title": "Centroides Municipios",
             "visible": true,
             "opacity": 1,
             "settings": {
                 "request_body": {
-                    "LAYERS": "cdmx:nodos",
+                    "LAYERS": "mexico:centros_mun",
                     "SRS": "EPSG:4326",
                     "TILED": true
                 },
                 "url": "http://localhost:8080/geoserver/wms",
                 "extent": [
-                    -99.4157001760869,
-                    18.968111226975296,
-                    -98.92457679563076,
-                    19.588382264982073
+                    -118.365119934082,
+                    14.5320978164673,
+                    -86.7104034423828,
+                    32.7186546325684
                 ]
             },
             "plugin_view": {}
@@ -79,8 +79,8 @@
         {
             "type": "wms",
             "name": "dem_mexico",
-            "title": "MOdelo digital de elevacion",
-            "visible": true,
+            "title": "Modelo digital de elevacion",
+            "visible": false,
             "opacity": 1,
             "settings": {
                 "request_body": {

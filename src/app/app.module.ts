@@ -18,7 +18,8 @@ import { LayerRefreshService } from './layerlist/layer-refresh.service';
     
   ],
   imports: [
-    BrowserModule,HttpClientModule,BrowserAnimationsModule,MatTreeModule,MatIconModule,MatButtonModule
+    BrowserModule,HttpClientModule,BrowserAnimationsModule,MatTreeModule,MatIconModule,MatButtonModule,
+    MatCheckboxModule
   ],
   providers: [SimpleRequestService,LayerRefreshService],
   bootstrap: [AppComponent]

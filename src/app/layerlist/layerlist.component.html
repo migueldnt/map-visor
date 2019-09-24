@@ -1,20 +1,24 @@
 <mat-tree [dataSource]="dataSource" [treeControl]="treeControl">
   <!-- This is the tree node template for leaf nodes -->
-  <mat-tree-node *matTreeNodeDef="let node" matTreeNodePadding>
-    <!-- use a disabled button to provide padding for tree leaf -->
+  <mat-tree-node *matTreeNodeDef="let node" matTreeNodeToggle matTreeNodePadding>
     <button mat-icon-button disabled></button>
-    {{node.name}}
+    <mat-checkbox class="checklist-leaf-node"
+                  [checked]="checklistSelection.isSelected(node)"
+                  (change)="todoLeafItemSelectionToggle(node)">{{node.name}} aa</mat-checkbox>
   </mat-tree-node>
+
   <!-- This is the tree node template for expandable nodes -->
-  <mat-tree-node *matTreeNodeDef="let node;when: hasChild" matTreeNodePadding>
+
+  <mat-tree-node *matTreeNodeDef="let node; when: hasChild" matTreeNodePadding>
     <button mat-icon-button matTreeNodeToggle
             [attr.aria-label]="'toggle ' + node.name">
       <mat-icon class="mat-icon-rtl-mirror">
-        {{treeControl.isExpanded(node) ? 'expand_more' : 'chevron_right'}}
+        {{ treeControl.isExpanded(node) ? 'expand_more' : 'chevron_right' }}
       </mat-icon>
     </button>
-    {{node.name}}
+    <mat-checkbox [checked]="descendantsAllSelected(node)"
+                  [indeterminate]="descendantsPartiallySelected(node)"
+                  (change)="todoItemSelectionToggle(node)">{{node.name}}</mat-checkbox>
   </mat-tree-node>
-</mat-tree>
 
 <button (click)="mensaje1()">click1</button>

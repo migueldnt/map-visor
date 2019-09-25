@@ -12,6 +12,7 @@
         ],
         "main": [
             "dem_mexico",
+            "grad_edu2_copia",
             {
                 "title":"Pruebas 1",
                 "layers":[
@@ -89,6 +90,28 @@
                     "TILED": true
                 },
                 "url": "http://gaia.inegi.org.mx/NLB/mdm5.wms"
+            },
+            "plugin_view": {}
+        },
+        {
+            "type": "wms",
+            "name": "grad_edu2_copia",
+            "title": "Grado de Educación copia",
+            "visible": true,
+            "opacity": 1,
+            "settings": {
+                "request_body": {
+                    "LAYERS": "mexico:muns_grado_educacion 2015",
+                    "SRS": "EPSG:4326",
+                    "TILED": true
+                },
+                "url": "http://localhost:8080/geoserver/wms",
+                "extent": [
+                    -118.365119934082,
+                    14.5320978164673,
+                    -86.7104034423828,
+                    32.7186546325684
+                ]
             },
             "plugin_view": {}
         }

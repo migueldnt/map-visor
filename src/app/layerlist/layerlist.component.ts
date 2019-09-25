@@ -77,12 +77,19 @@ export class LayerlistComponent implements OnInit {
       console.log(m)
       setTimeout(()=>{
         this.dataSource.data=this.json1;
+        this.dataSource._flattenedData.value.forEach(element=>{
+          //console.log(element,"... for in datasource");
+          if(element.checked){
+            this.checklistSelection.select(element);
+          }
+          
+        });
       },100)
     })
-    //console.log(this.dataSource);
-    this.checklistSelection.onChange.subscribe((node)=>{
-      console.log(node)
-    })
+    //SI ES NECESARIO USAR ESTE EVENTO SUCEDE CUANDO CAMBIA CUALQUIER ELEMENTO DEL ARBOL..
+    //this.checklistSelection.onChange.subscribe((node)=>{
+    //  console.log(node)
+    //})    
   }
 
   hasChild = (_: number, node: LayerFlatNode) => node.expandable;
@@ -128,18 +135,28 @@ export class LayerlistComponent implements OnInit {
       //aqui se deseleccionan todos ...jajjajaaj
       if(this.checklistSelection.isSelected(node)){
         this.checklistSelection.select(...descendants)
+        //a cada elemento hijo (descendants) se le prende
+        descendants.forEach((thel)=>{
+          thel.dntLayer.setVisible(true);
+        });
       }else{
-        this.checklistSelection.deselect(...descendants)
+        this.checklistSelection.deselect(...descendants);
+        //a cada elemento hijo (descendants) se le apaga
+        descendants.forEach((thel)=>{
+          thel.dntLayer.setVisible(false);
+        });
       }
   
       // Force update for the parent
-      descendants.every(child =>
+      let todo_EsSelected=descendants.every(child =>
         this.checklistSelection.isSelected(child)
       );
+      //console.log(todo_EsSelected,node.name,node.expandable)
       this.checkAllParentsSelection(node);
 
       let checado=this.checklistSelection.isSelected(node);
       node.dntLayer.setVisible(checado);
+      node.checked=checado
     }
   
     /** Toggle a leaf to-do item selection. Check all the parents to see if they changed */
@@ -149,6 +166,7 @@ export class LayerlistComponent implements OnInit {
       this.checkAllParentsSelection(node); //manda a check o indeterminate sus parents
       let checado=this.checklistSelection.isSelected(node);
       node.dntLayer.setVisible(checado);
+      node.checked=checado;
     }
   
     /* Checks all the parents when a leaf node is selected/unselected */
@@ -204,6 +222,12 @@ export class LayerlistComponent implements OnInit {
       return null;
     }
 
+    private _checklistSelection_isSelected(node:LayerFlatNode){
+      let is_sele=this.checklistSelection.isSelected(node);
+      //console.log(is_sele,node.name,node.dntLayer.visible);
+      //let rre=(!is_sele)? 
+      return is_sele//node.checked
+    }
 
   mensaje1(){
     

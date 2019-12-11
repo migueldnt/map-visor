@@ -229,6 +229,11 @@ export class LayerlistComponent implements OnInit {
       return is_sele//node.checked
     }
 
+    select_node(node){
+      console.log(node.dntLayer,"AQUI DAR EL EVENTO DE SELECCION");
+    }
+
+
   mensaje1(){
     
     console.log(this.json1)    

@@ -5,7 +5,7 @@
     <mat-checkbox class="checklist-leaf-node"
                   [checked]="_checklistSelection_isSelected(node)"
                   (change)="todoLeafItemSelectionToggle(node)"></mat-checkbox>&nbsp;
-    <span class="text-to-select" title="click para seleccionar">{{node.name}}</span>
+    <span class="text-to-select" title="click para seleccionar" (click)="select_node(node)">{{node.name}}</span>
   </mat-tree-node>
 
   <!-- This is the tree node template for expandable nodes -->

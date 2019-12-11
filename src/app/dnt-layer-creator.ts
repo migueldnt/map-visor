@@ -4,6 +4,8 @@ import { TileDntL } from './dntlayer/tile-Dnt-L';
 import { DntLayer } from './dntlayer/dnt-layer';
 import { GroupDntL } from './dntlayer/group-dnt-l';
 import { WMSDntL } from './dntlayer/wmsdnt-l';
+import { LegendItem } from './layerlist/legend-item';
+import { ThrowStmt } from '@angular/compiler';
 
 export class DntLayerCreator {
     map: Map;
@@ -37,6 +39,8 @@ export class DntLayerCreator {
 
     groupLayersMain: GroupDntL;
 
+    legends:LegendItem[]=[]
+
     constructor(map: Map, jsonLoaded: any) {
         this.map = map;
         this.jsonLoaded = jsonLoaded;
@@ -55,9 +59,32 @@ export class DntLayerCreator {
         this.layersParams.forEach(layerParam => {
             // console.log(layerParam);
             let unDntLayer: DntLayer = DntLayerCreator.construirDntLayer(layerParam);
+            //cuando cambie el layer se activara/desactivara la leyenda
+            unDntLayer.onChangeVisible((dntlayer:DntLayer,status:boolean)=>{
+                if(status){
+                    //agregar la leyenda 
+                    let ll=dntlayer.getlegend()
+                    this.legends.push(ll)
+                }else{
+                    //buscar y remover la leyenda
+                    let ele=this.legends.find(leg=> leg.identificador==dntlayer.name)
+                    let idx=this.legends.indexOf(ele);
+                    if (idx>=0){
+                        this.legends.splice(idx,1)
+                    }
+                    
+                }
+            })
             //console.log(unDntLayer.layer)  //aqui el layer es undefineds
             layersTodos.push(unDntLayer);
         });
+        //obtener las leyendas de todos, pero solo mostrar de los que estan visibles...
+        layersTodos.forEach(layer=>{
+            if(layer.visible){
+                let leyenda:LegendItem=layer.getlegend();
+                this.legends.push(leyenda);
+            }
+        })
         //debemos ordenarlos en los grupos de capas base y por fin agregarlos al mapa
         this.ordenarlayersEnArbol(layersTodos);
         //ya ordenados hay que agregarlos al mapa para que se vean chidos
@@ -181,7 +208,7 @@ export class DntLayerCreator {
                 return new WMSDntL(layerParam);
             default:
                 //return new DntLayer(layerParam);
-                console.log("AGREGA ESTE TIPO DE LAYER PARA SOPORTARLO")
+                console.log("AGREGA ESTE TIPO DE LAYER PARA SOPORTARLO "+tipo)
                 break;
         }
     }

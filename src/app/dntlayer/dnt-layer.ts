@@ -1,5 +1,7 @@
 import BaseLayer from 'ol/layer/Base';
 import { LayerParam } from '../dnt-layer-creator';
+import { LegendItemComponent } from '../layerlist/legend-item/legend-item.component';
+import { LegendItem } from '../layerlist/legend-item';
 
 export class DntLayer {
     layer:BaseLayer
@@ -10,12 +12,19 @@ export class DntLayer {
     isPluginView:boolean
     isGroup:Boolean
     layerParamObject:LayerParam
+    
 
     /**
      * si esta activo, es diferente a si esta visible activo es cuando esta disponible su cambio desde el arbol de layers
      */
     active:boolean=true;
 
+    private _fn_onChangeVisible:Function=(dntLayer:DntLayer,visibleStatus:boolean)=>{};
+
+    /**
+     * Construtor de DntLayer
+     * @param layerParam 
+     */
     constructor(layerParam:LayerParam){
         this.layerParamObject=layerParam;
         this.type=layerParam.type;
@@ -34,6 +43,7 @@ export class DntLayer {
         this.visible=visible
         if(this.active){
             this.layer.setVisible(visible);
+            this._fn_onChangeVisible(this,visible);
         }
     }
 
@@ -49,5 +59,13 @@ export class DntLayer {
     toggleVisible(){
         let nueval=!this.visible;
         this.setVisible(nueval);
+    }
+
+    onChangeVisible(fn:Function=(dntLayer:DntLayer,visibleStatus:boolean)=>{}){
+        this._fn_onChangeVisible=fn;
+    }
+
+    getlegend():LegendItem{
+        return new LegendItem(this.title,this.name);
     }
 }

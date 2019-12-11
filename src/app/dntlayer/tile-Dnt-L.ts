@@ -3,6 +3,7 @@ import { LayerParam } from '../dnt-layer-creator';
 import TileLayer  from 'ol/layer/Tile';
 import OSM from 'ol/source/OSM';
 import TileSource from 'ol/source/Tile';
+import { LegendItem } from '../layerlist/legend-item';
 
 export class TileDntL extends DntLayer{
     
@@ -40,5 +41,12 @@ export class TileDntL extends DntLayer{
             source=new TileSource({});
         } 
         return source;
+    }
+
+    getlegend():LegendItem{
+        let leyenda:LegendItem=new LegendItem(this.title,this.name);
+        leyenda.use_singleColorOrLabel=true;
+        leyenda.singleLabel="🌎"
+        return leyenda
     }
 }

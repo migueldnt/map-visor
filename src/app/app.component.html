@@ -8,3 +8,10 @@
 
 <!--el panel de arriba que sirve de encabezado-->
 <div id="panel2" class="header-panel"></div>
+
+<!--legend popup-->
+<div id="legend-panel">
+    <div class="legend-content">        
+        <app-legend-item *ngFor="let legend of legends" [legend_item]="legend" class="legend-item"></app-legend-item>
+    </div>
+</div>

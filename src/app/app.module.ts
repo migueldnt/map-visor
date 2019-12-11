@@ -10,11 +10,13 @@ import { MatTree, MatTreeNode,MatTreeModule } from '@angular/material/tree';
 import {MatIconModule} from '@angular/material/icon'; 
 import {MatButtonModule, MatCheckboxModule} from '@angular/material';
 import { LayerRefreshService } from './layerlist/layer-refresh.service';
+import { LegendItemComponent } from './layerlist/legend-item/legend-item.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     LayerlistComponent,
+    LegendItemComponent,
     
   ],
   imports: [

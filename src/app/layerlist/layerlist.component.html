@@ -4,7 +4,8 @@
     <button mat-icon-button disabled></button>
     <mat-checkbox class="checklist-leaf-node"
                   [checked]="_checklistSelection_isSelected(node)"
-                  (change)="todoLeafItemSelectionToggle(node)">{{node.name}} aa</mat-checkbox>
+                  (change)="todoLeafItemSelectionToggle(node)"></mat-checkbox>&nbsp;
+    <span class="text-to-select" title="click para seleccionar">{{node.name}}</span>
   </mat-tree-node>
 
   <!-- This is the tree node template for expandable nodes -->
@@ -22,5 +23,6 @@
   </mat-tree-node>
 
 </mat-tree>
-
+<!--
 <button (click)="mensaje1()">click1</button>
+-->

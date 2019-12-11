@@ -4,7 +4,8 @@
     cursor: move;
     position: fixed;
     padding-left: 300px;
-    top:50px
+    top:50px;
+    left:0px;
 }
 
 .principal-panel{
@@ -30,3 +31,26 @@
     z-index: 6;
 
 }
+
+
+#legend-panel{
+    position: fixed;
+    top: 62px;
+    right: 40px;
+    background-color: white;
+    min-width: 10vw;
+    min-height: 5vh;
+    border-radius: 4px;
+    box-shadow: rgba(0, 0, 0, 0.62) 7px 8px 14px 0px;
+    border-style: solid;
+    border-width: 1px;
+    border-color: #ece6e6;
+    padding: 5px;
+}
+
+#legend-panel .legend-content{
+    max-height: 400px;
+    width: 100%;
+    overflow-y: auto;
+}
+

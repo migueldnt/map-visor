@@ -8,20 +8,24 @@ import { SimpleRequestService } from './simple-request.service';
 import { HttpClientModule } from '@angular/common/http';
 import { MatTree, MatTreeNode,MatTreeModule } from '@angular/material/tree';
 import {MatIconModule} from '@angular/material/icon'; 
-import {MatButtonModule, MatCheckboxModule} from '@angular/material';
+import {MatButtonModule, MatCheckboxModule, MatDialog, MatDialogModule} from '@angular/material';
 import { LayerRefreshService } from './layerlist/layer-refresh.service';
 import { LegendItemComponent } from './layerlist/legend-item/legend-item.component';
+import { ToolbarContainerComponent } from './toolbar/toolbar-container/toolbar-container.component';
+import { DialogDownloadComponent } from './toolbar/dialog-download/dialog-download.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     LayerlistComponent,
     LegendItemComponent,
+    ToolbarContainerComponent,
+    DialogDownloadComponent,
     
   ],
   imports: [
     BrowserModule,HttpClientModule,BrowserAnimationsModule,MatTreeModule,MatIconModule,MatButtonModule,
-    MatCheckboxModule
+    MatCheckboxModule,MatDialogModule
   ],
   providers: [SimpleRequestService,LayerRefreshService],
   bootstrap: [AppComponent]

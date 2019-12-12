@@ -3,11 +3,14 @@
 
 <!--el panel de layers y simbologia-->
 <div id="panel1" class="principal-panel">
-    <app-layerlist [json1]="eljson1"></app-layerlist>
+    <app-layerlist [json1]="eljson1" #ellayerlist></app-layerlist>
 </div>
 
 <!--el panel de arriba que sirve de encabezado-->
-<div id="panel2" class="header-panel"></div>
+<div id="panel2" class="header-panel">
+    <div class="to-logos"></div>
+    <dnt-toolbar-container [olMapa]="this.mapa" [layerListComp]="ellayerlist"></dnt-toolbar-container>
+</div>
 
 <!--legend popup-->
 <div id="legend-panel">

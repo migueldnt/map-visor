@@ -1,0 +1,7 @@
+<button mat-button (click)="prueba1()" title="preubas">
+  <mat-icon aria-hidden="false" aria-label="Example home icon">home</mat-icon>
+</button>
+
+<button mat-button (click)="descarga_button()" [title]=" (this.layerListComp.currentDntLayer!=undefined)? 'Descarga '+this.layerListComp.currentDntLayer.title: 'Descarga de capas' ">
+  <mat-icon aria-hidden="false" aria-label="Example home icon">cloud_download</mat-icon>
+</button>

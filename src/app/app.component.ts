@@ -1,4 +1,4 @@
-import { Component, Output } from '@angular/core';
+import { Component, Output, ViewChild } from '@angular/core';
 import { Map, View } from 'ol';
 import TileLayer from 'ol/layer/Tile';
 import OSM from 'ol/source/OSM';
@@ -8,6 +8,8 @@ import { LayerRefreshService } from './layerlist/layer-refresh.service';
 import { EventEmitter } from 'events';
 import { DntLayer } from './dntlayer/dnt-layer';
 import { LegendItem } from './layerlist/legend-item';
+import { LayerlistComponent } from './layerlist/layerlist.component';
+
 
 @Component({
   selector: 'app-root',
@@ -15,11 +17,14 @@ import { LegendItem } from './layerlist/legend-item';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
-  title = 'map-visor';
-  mapa = null;
+  title:string = 'map-visor';
+  mapa:Map = null;
   eljson1:DntLayer[] = []; //borrar, solo es para probar
   mapCreator: DntLayerCreator;
   legends:LegendItem[]=[];
+
+  @ViewChild(LayerlistComponent,{static:false})layerListCmpnt:LayerlistComponent;
+
   constructor(public simpleRequestService: SimpleRequestService,private _layerRefreshService:LayerRefreshService) {
 
   }

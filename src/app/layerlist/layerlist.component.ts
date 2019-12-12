@@ -1,7 +1,7 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, ViewChildren, ElementRef ,Renderer2} from '@angular/core';
 import { SelectionModel } from '@angular/cdk/collections';
 import {FlatTreeControl} from '@angular/cdk/tree';
-import {MatTreeFlatDataSource, MatTreeFlattener} from '@angular/material/tree';
+import {MatTreeFlatDataSource, MatTreeFlattener, MatTreeNode} from '@angular/material/tree';
 import { LayerRefreshService } from './layer-refresh.service';
 import { DntLayer } from '../dntlayer/dnt-layer';
 import { GroupDntL } from '../dntlayer/group-dnt-l';
@@ -36,6 +36,11 @@ interface LayerFlatNode {
 })
 export class LayerlistComponent implements OnInit {
   @Input() json1:DntLayer[]=[]
+  
+  //@ViewChildren(MatTreeNode,{read:ElementRef}) treeNodes:ElementRef[];
+  oldSobresaliente:ElementRef;
+  public currentDntLayer:DntLayer;
+
   private _transformer = (node: DntLayer, level: number):LayerFlatNode => {
     let expandable1=false
     if(node instanceof GroupDntL){
@@ -71,7 +76,7 @@ export class LayerlistComponent implements OnInit {
   /** The selection for checklist */
   checklistSelection = new SelectionModel<LayerFlatNode>(true /* multiple */);
 
-  constructor(private _layerRefreshService:LayerRefreshService) {
+  constructor(private _layerRefreshService:LayerRefreshService,private _renderer:Renderer2) {
     this.dataSource.data = TREE_DATA
     this._layerRefreshService.listen().subscribe((m:any)=>{
       console.log(m)
@@ -229,8 +234,25 @@ export class LayerlistComponent implements OnInit {
       return is_sele//node.checked
     }
 
-    select_node(node){
-      console.log(node.dntLayer,"AQUI DAR EL EVENTO DE SELECCION");
+    select_node(node:LayerFlatNode,event:any){
+      //quitar la seleccion de los demas elementos
+      if (this.oldSobresaliente !=undefined){
+        this._renderer.removeClass(this.oldSobresaliente.nativeElement,"dnt-selected-node")
+      }
+      let elemsRef:any[]=event.path
+      let nodoHtml:ElementRef=new ElementRef( elemsRef[1])
+      this._renderer.addClass(nodoHtml.nativeElement,"dnt-selected-node")
+      //console.log(nodoHtml);
+      this.oldSobresaliente=nodoHtml;
+      this.currentDntLayer=node.dntLayer;
+      
+    }
+
+    toogleExpandThis(node:LayerFlatNode){
+      console.log(node.name);
+      //this.treeControl.expand(node)
+      this.treeControl.toggle(node)
+      
     }
 
 

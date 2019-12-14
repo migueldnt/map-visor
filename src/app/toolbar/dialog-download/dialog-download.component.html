@@ -1,6 +1,26 @@
-<p>
-  dialog-download works!
-</p>
+<div mat-dialog-content>
+  <p class="cotent-font">Descargar capa <b>{{layer.title}}</b></p>
+  <mat-form-field>
+    <mat-label>Selecciona una descarga disponible</mat-label>
+    <mat-select [(ngModel)]="descarga_seleccionada">
+      <mat-option *ngFor="let descarga of descargas_disponibles" [value]="descarga">
+        {{descarga.title}}
+      </mat-option>
+    </mat-select>
+  </mat-form-field>
+
+  <div>
+    <p>{{descarga_seleccionada.title}}</p>
+    <p>{{descarga_seleccionada.description}}</p>
+    <p><a [href]="descarga_seleccionada.formed_url">Descarga aquí</a></p>
+  </div>
+</div>
+
+
+
+
+
+
 <div mat-dialog-actions>
-  <button mat-button (click)="onNoClick()">No Thanks</button>
+  <button mat-button (click)="onNoClick()">No Gracias</button>
 </div>

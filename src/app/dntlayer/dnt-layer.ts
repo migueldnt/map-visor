@@ -2,6 +2,7 @@ import BaseLayer from 'ol/layer/Base';
 import { LayerParam } from '../dnt-layer-creator';
 import { LegendItemComponent } from '../layerlist/legend-item/legend-item.component';
 import { LegendItem } from '../layerlist/legend-item';
+import { Map } from 'ol';
 
 export class DntLayer {
     layer:BaseLayer
@@ -12,6 +13,7 @@ export class DntLayer {
     isPluginView:boolean
     isGroup:Boolean
     layerParamObject:LayerParam
+    allow_downlaoad=false;
     
 
     /**
@@ -65,7 +67,37 @@ export class DntLayer {
         this._fn_onChangeVisible=fn;
     }
 
+    /**
+     * reescribible method
+     */
     getlegend():LegendItem{
         return new LegendItem(this.title,this.name);
     }
+
+    /**
+     * reescribible method
+     */
+    getOpcionesDescarga(mapa:Map=null):DescargableInfo[]{
+        return [];
+    }
+
+    public static DescargableInfo_formedUrl(info:DescargableInfo):string{
+        let parms=Object.keys(info.params_query).map((k)=>{
+            //console.log(info)
+            return encodeURIComponent(k)+"="+encodeURIComponent(info.params_query[k])
+        })
+        return info.url+"?"+parms.join("&")
+    }
+}
+
+
+export interface DescargableInfo{
+    url:string,
+    title:string,
+    description?:string,
+    /**
+     * parametros que se le agregan al url
+     */
+    params_query?:any,
+    formed_url?:string
 }

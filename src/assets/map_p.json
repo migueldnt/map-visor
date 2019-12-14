@@ -12,14 +12,17 @@
         ],
         "main": [
             "dem_mexico",
-            "grad_edu2_copia",
             {
-                "title":"Pruebas 1",
+                "title":"Registro Agrario Nacional",
                 "layers":[
-                    "grad_edu",
-                    "centros_muns"
+                    "nucleos_agrarios",
+                    "asentamientos_humanos",
+                    "zona_parcelas",
+                    "tierras_usocomun"
                 ]
-            }
+            },
+            "cuerpos_agua_yucatan",
+            "estaciones_francisco"
         ]
     },
     "layers": [
@@ -35,17 +38,43 @@
         },
         {
             "type": "wms",
-            "name": "grad_edu",
-            "title": "Grado de Educación",
+            "name": "nucleos_agrarios",
+            "title": "Nucleos Agrarios",
             "visible": true,
             "opacity": 1,
             "settings": {
                 "request_body": {
-                    "LAYERS": "mexico:muns_grado_educacion 2015",
+                    "LAYERS": "servicios_sig1:nucleos_agrarios",
                     "SRS": "EPSG:4326",
-                    "TILED": true
+                    "TILED": false
                 },
-                "url": "http://localhost:8080/geoserver/wms",
+                "url": "http://172.16.12.102:8080/geoserver/wms",
+                "extent": [
+                    -118.365119934082,
+                    14.5320978164673,
+                    -86.7104034423828,
+                    32.7186546325684
+                ],
+                "allow_downloaddata":false,
+                "options_downloaddata":{
+                    "from_wfs":true
+                }
+            },
+            "plugin_view": {}
+        },
+        {
+            "type": "wms",
+            "name": "asentamientos_humanos",
+            "title": "Asentamientos Humanos",
+            "visible": false,
+            "opacity": 1,
+            "settings": {
+                "request_body": {
+                    "LAYERS": "servicios_sig1:asentamientos_humanos",
+                    "SRS": "EPSG:4326",
+                    "TILED": false
+                },
+                "url": "http://172.16.12.102:8080/geoserver/wms",
                 "extent": [
                     -118.365119934082,
                     14.5320978164673,
@@ -57,17 +86,17 @@
         },
         {
             "type": "wms",
-            "name": "centros_muns",
-            "title": "Centroides Municipios",
+            "name": "zona_parcelas",
+            "title": "Zona Parcelas",
             "visible": true,
             "opacity": 1,
             "settings": {
                 "request_body": {
-                    "LAYERS": "mexico:centros_mun",
+                    "LAYERS": "servicios_sig1:zona_parcelas",
                     "SRS": "EPSG:4326",
                     "TILED": true
                 },
-                "url": "http://localhost:8080/geoserver/wms",
+                "url": "http://172.16.12.102:8080/geoserver/wms",
                 "extent": [
                     -118.365119934082,
                     14.5320978164673,
@@ -77,6 +106,73 @@
             },
             "plugin_view": {}
         },
+        {
+            "type": "wms",
+            "name": "tierras_usocomun",
+            "title": "Tierras Uso Comun",
+            "visible": false,
+            "opacity": 1,
+            "settings": {
+                "request_body": {
+                    "LAYERS": "servicios_sig1:tierras_usocomun",
+                    "SRS": "EPSG:4326",
+                    "TILED": true
+                },
+                "url": "http://172.16.12.102:8080/geoserver/wms",
+                "extent": [
+                    -118.365119934082,
+                    14.5320978164673,
+                    -86.7104034423828,
+                    32.7186546325684
+                ]
+            },
+            "plugin_view": {}
+        },
+
+        {
+            "type": "wms",
+            "name": "cuerpos_agua_yucatan",
+            "title": "Yucatan Cuerpos de agua",
+            "visible": false,
+            "opacity": 1,
+            "settings": {
+                "request_body": {
+                    "LAYERS": "cuerpoA_QR:RH32Aa_ha",
+                    "SRS": "EPSG:4326",
+                    "TILED": true
+                },
+                "url": "http://172.16.12.23:8080/geoserver/wms",
+                "extent": [
+                    -118.365119934082,
+                    14.5320978164673,
+                    -86.7104034423828,
+                    32.7186546325684
+                ]
+            },
+            "plugin_view": {}
+        },
+        {
+            "type": "wms",
+            "name": "estaciones_francisco",
+            "title": "estaciones francisco",
+            "visible": false,
+            "opacity": 1,
+            "settings": {
+                "request_body": {
+                    "LAYERS": "eMetro:estaciones-metro",
+                    "SRS": "EPSG:4326",
+                    "TILED": true
+                },
+                "url": "http://172.16.12.23:8080/geoserver/wms",
+                "extent": [
+                    -99.214643,19.28680057,-98.96061659,19.53444312
+                    
+                ]
+                
+            },
+            "plugin_view": {}
+        },
+        
         {
             "type": "wms",
             "name": "dem_mexico",
@@ -92,29 +188,9 @@
                 "url": "http://gaia.inegi.org.mx/NLB/mdm5.wms"
             },
             "plugin_view": {}
-        },
-        {
-            "type": "wms",
-            "name": "grad_edu2_copia",
-            "title": "Grado de Educación copia",
-            "visible": true,
-            "opacity": 1,
-            "settings": {
-                "request_body": {
-                    "LAYERS": "mexico:muns_grado_educacion 2015",
-                    "SRS": "EPSG:4326",
-                    "TILED": true
-                },
-                "url": "http://localhost:8080/geoserver/wms",
-                "extent": [
-                    -118.365119934082,
-                    14.5320978164673,
-                    -86.7104034423828,
-                    32.7186546325684
-                ]
-            },
-            "plugin_view": {}
         }
+        
+        
         
     ]
 }

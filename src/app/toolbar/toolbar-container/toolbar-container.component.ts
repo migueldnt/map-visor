@@ -3,6 +3,7 @@ import { Map } from 'ol';
 import { LayerlistComponent } from 'src/app/layerlist/layerlist.component';
 import {MatDialog} from '@angular/material/dialog'
 import { DialogDownloadComponent, DialogDownloadData } from '../dialog-download/dialog-download.component';
+import { DntAlertaComponent, DntAlertaData } from 'src/app/dnt-alerta/dnt-alerta.component';
 
 @Component({
   selector: 'dnt-toolbar-container',
@@ -27,10 +28,18 @@ export class ToolbarContainerComponent implements OnInit {
 
   descarga_button(){
     if(this.layerListComp.currentDntLayer!=undefined){
-      let dataSend:DialogDownloadData={dntLayer:this.layerListComp.currentDntLayer,mapa:this.olMapa}
-      this.dialog.open(DialogDownloadComponent,{width:"250px",data:dataSend} )
+      if(this.layerListComp.currentDntLayer.allow_downlaoad){
+        let dataSend:DialogDownloadData={dntLayer:this.layerListComp.currentDntLayer,mapa:this.olMapa}
+        this.dialog.open(DialogDownloadComponent,{width:"350px",data:dataSend} )
+      }else{
+        let mensaje:DntAlertaData={mensaje:this.layerListComp.currentDntLayer.title+" no permite descargar información",textoBoton:"Enterado"}
+        this.dialog.open(DntAlertaComponent,{data:mensaje})
+      }
+      
+      
     }else{
-      alert("selecciona una capa!")
+      let mensaje:DntAlertaData={mensaje:"Selecciona una capa!!"}
+      this.dialog.open(DntAlertaComponent,{data:mensaje})
     }
     
   }

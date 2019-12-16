@@ -100,4 +100,7 @@ export interface DescargableInfo{
      */
     params_query?:any,
     formed_url?:string
+    previzualiza?:boolean,
+    url_prev?:string,
+    extension?:string
 }

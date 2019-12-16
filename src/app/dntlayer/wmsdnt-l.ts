@@ -47,6 +47,8 @@ export class WMSDntL extends DntLayer {
                 let exp=/(\/wms\??)(?!.*\1)/gi
                 let urls=this.settings.url.replace(exp,"/wfs")
                 let bbox=mapa.getView().calculateExtent(mapa.getSize()).join(",")+",EPSG:4326"
+                //definiendo datmbien un url de la previzualizacion
+                let url_prev:string=this.settings.url+"?request=GetMap&Format=image/png&bbox="+mapa.getView().calculateExtent(mapa.getSize()).join(",")+"&layers="+this.settings.request_body.LAYERS+"&width=250&height=200"
                 
                 let op_shp: DescargableInfo = {
                     title: "SHP desde vista actual de mapa",
@@ -55,7 +57,10 @@ export class WMSDntL extends DntLayer {
                         request: "GetFeature", version: "1.1.0", typeName: this.settings.request_body.LAYERS,
                         outputformat: "shape-zip",
                         bbox:bbox
-                    }
+                    },
+                    previzualiza:true,
+                    url_prev:url_prev,
+                    extension:"zip"
                 }
                 op_shp.formed_url=DntLayer.DescargableInfo_formedUrl(op_shp)
                 opciones.push(op_shp)
@@ -66,7 +71,10 @@ export class WMSDntL extends DntLayer {
                         request: "GetFeature", version: "1.1.0", typeName: this.settings.request_body.LAYERS,
                         outputformat: "application/json",
                         bbox:bbox
-                    }
+                    },
+                    previzualiza:true,
+                    url_prev:url_prev,
+                    extension:"geojson"
                 }
                 op_gejson.formed_url=DntLayer.DescargableInfo_formedUrl(op_gejson)
                 opciones.push(op_gejson)
@@ -77,7 +85,10 @@ export class WMSDntL extends DntLayer {
                         request: "GetFeature", version: "1.1.0", typeName: this.settings.request_body.LAYERS,
                         outputformat: "GML3",
                         bbox:bbox
-                    }
+                    },
+                    previzualiza:true,
+                    url_prev:url_prev,
+                    extension:"gml"
                 }
                 op_gml.formed_url=DntLayer.DescargableInfo_formedUrl(op_gml)
                 opciones.push(op_gml)

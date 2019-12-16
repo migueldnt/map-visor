@@ -12,7 +12,9 @@
   <div>
     <p>{{descarga_seleccionada.title}}</p>
     <p>{{descarga_seleccionada.description}}</p>
-    <p><a [href]="descarga_seleccionada.formed_url">Descarga aquí</a></p>
+    <p><a [download]="'archivo.'+descarga_seleccionada.extension" [href]="descarga_seleccionada.formed_url"  target="_blank">Descarga aquí</a></p>
+    <img *ngIf="descarga_seleccionada.previzualiza!=undefined && descarga_seleccionada.previzualiza==true" 
+    [src]="descarga_seleccionada.url_prev||'https://via.placeholder.com/250'" alt="previsualizacion descarga">
   </div>
 </div>
 

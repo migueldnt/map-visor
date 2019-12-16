@@ -55,7 +55,7 @@
                     -86.7104034423828,
                     32.7186546325684
                 ],
-                "allow_downloaddata":false,
+                "allow_downloaddata":true,
                 "options_downloaddata":{
                     "from_wfs":true
                 }
@@ -185,7 +185,8 @@
                     "SRS": "EPSG:4326",
                     "TILED": true
                 },
-                "url": "http://gaia.inegi.org.mx/NLB/mdm5.wms"
+                "url": "http://gaia.inegi.org.mx/NLB/mdm5.wms",
+                "allow_downloaddata":false
             },
             "plugin_view": {}
         }

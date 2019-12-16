@@ -8,7 +8,7 @@ import { SimpleRequestService } from './simple-request.service';
 import { HttpClientModule } from '@angular/common/http';
 import { MatTree, MatTreeNode,MatTreeModule } from '@angular/material/tree';
 import {MatIconModule} from '@angular/material/icon'; 
-import {MatButtonModule, MatCheckboxModule, MatDialog, MatDialogModule, MatFormFieldModule, MatSelectModule} from '@angular/material';
+import {MatButtonModule, MatCheckboxModule, MatDialog, MatDialogModule, MatFormFieldModule, MatSelectModule, MatToolbarModule} from '@angular/material';
 import { LayerRefreshService } from './layerlist/layer-refresh.service';
 import { LegendItemComponent } from './layerlist/legend-item/legend-item.component';
 import { ToolbarContainerComponent } from './toolbar/toolbar-container/toolbar-container.component';
@@ -28,7 +28,7 @@ import { FormsModule } from '@angular/forms';
   ],
   imports: [
     BrowserModule,HttpClientModule,BrowserAnimationsModule,MatTreeModule,MatIconModule,MatButtonModule,
-    MatCheckboxModule,MatDialogModule,MatFormFieldModule,MatSelectModule,FormsModule
+    MatCheckboxModule,MatDialogModule,MatFormFieldModule,MatSelectModule,FormsModule, MatToolbarModule
   ],
   providers: [SimpleRequestService,LayerRefreshService],
   bootstrap: [AppComponent],

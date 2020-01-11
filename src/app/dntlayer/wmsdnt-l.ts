@@ -3,7 +3,7 @@ import { LayerParam } from '../dnt-layer-creator';
 import TileLayer from 'ol/layer/Tile';
 import TileWMS from 'ol/source/TileWMS';
 import { LegendItem } from '../layerlist/legend-item';
-import { Map } from 'ol';
+import { Map, ImageTile } from 'ol';
 
 export class WMSDntL extends DntLayer {
     settings: WMSSettingsParam;
@@ -21,13 +21,19 @@ export class WMSDntL extends DntLayer {
                 url: this.settings.url,
                 params: this.settings.request_body,
                 serverType: "geoserver",
-                transition: 0
+                transition: 0,
+                tileLoadFunction:function(imageTile:ImageTile, src) {
+                    console.log(imageTile.getTileCoord());
+                    (<HTMLImageElement> imageTile.getImage()).src = src;
+                  }
             })
         });
         if ("extent" in this.settings) {
             this.layer.setExtent(this.settings.extent);
         }
         this.setBasicsToLayer();
+
+        
 
     }
 
